@@ -13,10 +13,10 @@ st.title("💡 Dashboard IoT - Control de Luz Inteligente")
 # -------------------------------
 # CONFIGURACIÓN INFLUXDB
 # -------------------------------
-url = "https://us-east-1-1.aws.cloud2.influxdata.com"
-token = "JoKdx3OFaBCFPmYQgiVWE8hjrtJ0lDkjwWZzT9djWJlvg98rtTgF9iRgKhQtAkKIA2UQsU6zsrJlv1BH6lfsVw=="
-org = "miguelcmo"
-bucket = "iot_telemetry_data"
+url = st.secrets["INFLUX_URL"]
+token = st.secrets["INFLUX_TOKEN"]
+org = st.secrets["INFLUX_ORG"]
+bucket = st.secrets["INFLUX_BUCKET"]
 
 client = InfluxDBClient(url=url, token=token, org=org)
 query_api = client.query_api()
