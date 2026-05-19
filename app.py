@@ -6,9 +6,40 @@ import matplotlib.pyplot as plt
 # -------------------------------
 # CONFIGURACIÓN STREAMLIT
 # -------------------------------
-st.set_page_config(page_title="Dashboard IoT Luz Inteligente", layout="wide")
+st.set_page_config(
+    page_title="Smart Yoga Studio",
+    layout="wide"
+)
 
-st.title("💡 Dashboard IoT - Control de Luz Inteligente")
+# -------------------------------
+# TITULO PRINCIPAL
+# -------------------------------
+st.markdown("""
+<h1 style='
+    text-align: center;
+    color: #8b6f5a;
+    font-size: 52px;
+    font-weight: 700;
+    margin-bottom: 0;
+    font-family: "Quicksand", sans-serif;
+'>
+Smart Yoga Studio
+</h1>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:40px;
+    color:#8b6f5a;
+    font-size:28px;
+    font-weight:700;
+    font-family:'Quicksand', sans-serif;
+">
+Equilibrio entre temperatura, humedad y bienestar 🌿
+</div>
+""", unsafe_allow_html=True)
 
 # -------------------------------
 # CONFIGURACIÓN INFLUXDB
@@ -22,7 +53,7 @@ client = InfluxDBClient(url=url, token=token, org=org)
 query_api = client.query_api()
 
 # -------------------------------
-# FUNCIÓN DE LUZ (LA TUYA)
+# FUNCIÓN DE LUZ
 # -------------------------------
 def intensidad_luz(temp, hum):
 
@@ -39,7 +70,7 @@ def intensidad_luz(temp, hum):
         return "🔵 Luz neutra"
 
 # -------------------------------
-# QUERY A INFLUXDB (90 MIN)
+# QUERY A INFLUXDB
 # -------------------------------
 query = f'''
 from(bucket: "{bucket}")
@@ -64,7 +95,6 @@ df["_time"] = pd.to_datetime(df["_time"])
 df = df.sort_values("_time")
 df = df[["_time", "temperature", "humidity"]]
 
-# Aplicar lógica de luz
 df["intensidad_luz"] = df.apply(
     lambda row: intensidad_luz(row["temperature"], row["humidity"]),
     axis=1
