@@ -71,69 +71,7 @@ df["intensidad_luz"] = df.apply(
 )
 
 # -------------------------------
-# -------------------------------
-# CONFIGURACIÓN STREAMLIT
-# -------------------------------
-st.set_page_config(
-    page_title="Dashboard IoT Luz Inteligente",
-    layout="wide"
-)
-
-st.title("🧘 Smart Yoga Studio")
-
-st.markdown("""
-<div style="
-    text-align:center;
-    margin-top:-10px;
-    margin-bottom:30px;
-    color:#7a6855;
-    font-size:18px;
-    font-family:'Poppins', sans-serif;
-">
-Equilibrio entre temperatura, humedad y bienestar 🌿
-</div>
-""", unsafe_allow_html=True)
-
-# -------------------------------
-# -------------------------------
-# CONFIGURACIÓN STREAMLIT
-# -------------------------------
-st.set_page_config(
-    page_title="Smart Yoga Studio",
-    layout="wide"
-)
-
-# -------------------------------
-# TITULO PRINCIPAL
-# -------------------------------
-st.markdown("""
-<h1 style='
-    text-align: center;
-    color: #8b6f5a;
-    font-size: 52px;
-    font-weight: 700;
-    margin-bottom: 0;
-'>
-🧘 Smart Yoga Studio
-</h1>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<div style="
-    text-align:center;
-    margin-top:10px;
-    margin-bottom:40px;
-    color:#8b6f5a;
-    font-size:28px;
-    font-weight:700;
-    font-family:'Quicksand', sans-serif;
-">
-Equilibrio entre temperatura, humedad y bienestar 🌿
-</div>
-""", unsafe_allow_html=True)
-
-# -------------------------------
-# ESTILO GENERAL
+# ESTILOS
 # -------------------------------
 st.markdown("""
 <style>
@@ -161,11 +99,6 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* SUBTITULOS */
-.stSubheader {
-    color: #8b6f5a !important;
-}
-
 /* TARJETAS */
 .card {
     background: rgba(255,255,255,0.55);
@@ -187,26 +120,29 @@ h1, h2, h3 {
 .info-box {
     background: linear-gradient(
         145deg,
-        rgba(255,255,255,0.8),
-        rgba(248,238,229,0.95)
+        #fffaf5,
+        #f3e5d7
     );
+    border: 2px solid #d8b89c;
     border-radius: 24px;
     padding: 18px;
     margin-top: 15px;
-    text-align:center;
+    text-align: center;
     box-shadow: 0px 6px 16px rgba(0,0,0,0.06);
 }
 
+/* TITULO DENTRO DEL RECUADRO */
 .info-title {
     font-size: 18px;
     font-weight: 700;
-    color: #8b6f5a;
+    color: #7b5e4b !important;
 }
 
+/* VALORES */
 .info-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #8b6f5a;
+    font-size: 30px;
+    font-weight: 800;
+    color: #5f4636 !important;
     margin-top: 10px;
 }
 
@@ -222,31 +158,34 @@ h1, h2, h3 {
 
 /* TABLA */
 .stDataFrame {
-    background: rgba(255,248,242,0.85);
+    background: rgba(232, 221, 209, 0.85);
     border-radius: 20px;
     padding: 10px;
     box-shadow: 0px 4px 12px rgba(0,0,0,0.04);
 }
 
-/* TABLA INTERNA */
+/* ENCABEZADO TABLA */
 thead tr th {
-    background-color: #cda98a !important;
-    color: white !important;
+    background-color: #a98467 !important;
+    color: #fffaf5 !important;
     text-align:center !important;
     font-size: 14px !important;
 }
 
+/* FILAS */
 tbody tr:nth-child(even) {
-    background-color: #fff7f0 !important;
+    background-color: #f6ede4 !important;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f9efe5 !important;
+    background-color: #efe2d3 !important;
 }
 
+/* TEXTO TABLA */
 tbody td {
     color: #8b6f5a !important;
     text-align:center !important;
+    font-weight: 500 !important;
 }
 
 /* GRAFICA */
@@ -405,15 +344,6 @@ ax.plot(
     color="#f29b77"
 )
 
-ax.plot(
-    df["_time"],
-    df["humidity"],
-    label="Humedad",
-    linewidth=2,
-    marker='o',
-    color="#8ecae6"
-)
-
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
@@ -424,5 +354,4 @@ ax.tick_params(axis='y', labelsize=6, colors="#8b6f5a")
 
 ax.legend(fontsize=6)
 
-st.pyplot(fig)
 st.pyplot(fig)
