@@ -364,34 +364,37 @@ st.dataframe(
 )
 
 # -------------------------------
+# -------------------------------
 # GRAFICA PEQUEÑA
 # -------------------------------
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.subheader("📈 Tendencia del Ambiente")
 
-fig, ax = plt.subplots(figsize=(3.8, 1.8))
+# CENTRAR LA GRAFICA
+col1, col2, col3 = st.columns([1.5, 2, 1.5])
 
-fig.patch.set_facecolor('#faf7f2')
-ax.set_facecolor('#fffaf6')
+with col2:
 
-ax.plot(
-    df["_time"],
-    df["temperature"],
-    label="Temperatura",
-    linewidth=2,
-    marker='o',
-    color="#f29b77"
-)
+    fig, ax = plt.subplots(figsize=(2.8, 1.4))
 
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
+    fig.patch.set_facecolor('#faf7f2')
+    ax.set_facecolor('#fffaf6')
 
-ax.grid(alpha=0.15)
+    ax.plot(
+        df["_time"],
+        df["temperature"],
+        linewidth=1.8,
+        marker='o',
+        color="#f29b77"
+    )
 
-ax.tick_params(axis='x', labelsize=5, colors="#8b6f5a")
-ax.tick_params(axis='y', labelsize=5, colors="#8b6f5a")
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
 
-ax.legend(fontsize=5)
+    ax.grid(alpha=0.10)
 
-st.pyplot(fig)
+    ax.tick_params(axis='x', labelsize=4, colors="#8b6f5a")
+    ax.tick_params(axis='y', labelsize=4, colors="#8b6f5a")
+
+    st.pyplot(fig)
