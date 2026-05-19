@@ -388,8 +388,6 @@ tbody td {
     text-align: center !important;
     font-weight: 600 !important;
 }
-
-# -------------------------------
 # -------------------------------
 # GRAFICA PEQUEÑA
 # -------------------------------
