@@ -178,44 +178,54 @@ h1, h2, h3 {
 
 /* HISTORIAL */
 .bloque-historial {
-    background: rgba(255,255,255,0.45);
-    border-radius: 20px;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 248, 240, 0.95),
+        rgba(240, 224, 208, 0.95)
+    );
+    border-radius: 22px;
     padding: 18px;
     margin-bottom: 18px;
-    border-left: 6px solid #d4b293;
-    box-shadow: 0px 5px 14px rgba(0,0,0,0.05);
+    border-left: 6px solid #c89f7a;
+    box-shadow: 0px 6px 14px rgba(0,0,0,0.05);
+    color: #7b5e4b !important;
 }
 
 /* TABLA */
 .stDataFrame {
-    background: rgba(232, 221, 209, 0.85);
-    border-radius: 20px;
-    padding: 10px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.04);
+    background: linear-gradient(
+        145deg,
+        rgba(245, 232, 220, 0.95),
+        rgba(232, 214, 198, 0.95)
+    );
+    border-radius: 22px;
+    padding: 12px;
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
 /* ENCABEZADO TABLA */
 thead tr th {
-    background-color: #a98467 !important;
+    background-color: #b58b6a !important;
     color: #fffaf5 !important;
     text-align:center !important;
     font-size: 14px !important;
 }
 
-/* FILAS */
+/* FILAS TABLA */
 tbody tr:nth-child(even) {
-    background-color: #f6ede4 !important;
+    background-color: #fdf5ee !important;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #efe2d3 !important;
+    background-color: #f6e8da !important;
 }
 
 /* TEXTO TABLA */
 tbody td {
-    color: #8b6f5a !important;
+    color: #7b5e4b !important;
     text-align:center !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
 
 /* GRAFICA */
@@ -360,7 +370,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 st.subheader("📈 Tendencia del Ambiente")
 
-fig, ax = plt.subplots(figsize=(5, 2.2))
+fig, ax = plt.subplots(figsize=(3.8, 1.8))
 
 fig.patch.set_facecolor('#faf7f2')
 ax.set_facecolor('#fffaf6')
@@ -379,9 +389,9 @@ ax.spines['right'].set_visible(False)
 
 ax.grid(alpha=0.15)
 
-ax.tick_params(axis='x', labelsize=6, colors="#8b6f5a")
-ax.tick_params(axis='y', labelsize=6, colors="#8b6f5a")
+ax.tick_params(axis='x', labelsize=5, colors="#8b6f5a")
+ax.tick_params(axis='y', labelsize=5, colors="#8b6f5a")
 
-ax.legend(fontsize=6)
+ax.legend(fontsize=5)
 
 st.pyplot(fig)
