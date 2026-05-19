@@ -76,60 +76,139 @@ df["intensidad_luz"] = df.apply(
 # -------------------------------
 st.markdown("""
 <style>
+
+    /* FUENTE GENERAL */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* FONDO GENERAL */
     .stApp {
-        background: linear-gradient(to bottom, #f5efe6, #e8dccf);
-        color: #4b3f35;
-        font-family: 'Trebuchet MS', sans-serif;
+        background: linear-gradient(
+            180deg,
+            #f6f1eb 0%,
+            #efe4d6 35%,
+            #e2d4c2 100%
+        );
+        color: #4e4035;
     }
 
+    /* TITULOS */
     h1, h2, h3 {
-        color: #6d5c4d;
+        color: #6b5b4d;
         font-weight: 600;
+        letter-spacing: 0.5px;
     }
 
-    .stDataFrame {
-        background-color: rgba(255,255,255,0.6);
+    /* SUBHEADERS */
+    .stSubheader {
+        background-color: rgba(255,255,255,0.35);
+        padding: 10px 18px;
         border-radius: 15px;
-        padding: 10px;
+        backdrop-filter: blur(5px);
     }
 
-    div[data-testid="metric-container"] {
-        background-color: rgba(255,255,255,0.65);
-        border: 1px solid #d8c3a5;
-        padding: 20px;
+    /* TABLAS */
+    .stDataFrame {
+        background: rgba(255,255,255,0.45);
         border-radius: 18px;
+        padding: 12px;
+        border: 1px solid rgba(255,255,255,0.4);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    /* TABLA INTERNA */
+    table {
+        border-collapse: collapse !important;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    thead tr th {
+        background-color: #b08968 !important;
+        color: white !important;
+        font-size: 15px !important;
+        text-align: center !important;
+        border: none !important;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f7efe7 !important;
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #fffaf5 !important;
+    }
+
+    tbody td {
+        color: #5b4b3d !important;
+        text-align: center !important;
+        border: none !important;
+        font-size: 14px !important;
+    }
+
+    /* METRICAS */
+    div[data-testid="metric-container"] {
+        background: linear-gradient(
+            145deg,
+            rgba(255,255,255,0.7),
+            rgba(245,236,224,0.85)
+        );
+        border: 1px solid rgba(255,255,255,0.5);
+        padding: 25px;
+        border-radius: 22px;
         text-align: center;
-        box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     }
 
     div[data-testid="metric-container"] label {
-        color: #7a6855;
+        color: #7a6756;
         font-size: 16px;
+        font-weight: 500;
     }
 
     div[data-testid="metric-container"] div {
         color: #4b3f35;
     }
 
+    /* HISTORIAL */
     .bloque-historial {
-        background-color: rgba(255,255,255,0.55);
-        padding: 18px;
-        border-radius: 16px;
-        margin-bottom: 15px;
-        border-left: 6px solid #c8a97e;
-        box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0.6),
+            rgba(247,239,231,0.9)
+        );
+        padding: 20px;
+        border-radius: 20px;
+        margin-bottom: 18px;
+        border-left: 7px solid #c8a27a;
+        box-shadow: 0px 5px 14px rgba(0,0,0,0.06);
+        transition: 0.3s;
     }
 
-    .titulo-luz {
-        background-color: rgba(255,255,255,0.55);
-        padding: 12px;
-        border-radius: 15px;
-        text-align: center;
-        font-size: 24px;
-        color: #7a5c3e;
-        margin-top: 10px;
-        box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
+    .bloque-historial:hover {
+        transform: scale(1.01);
     }
+
+    /* CAJA DE LUZ */
+    .titulo-luz {
+        background: linear-gradient(
+            135deg,
+            #f8ede3,
+            #e8d5c4
+        );
+        padding: 18px;
+        border-radius: 22px;
+        text-align: center;
+        font-size: 26px;
+        color: #7a5c3e;
+        margin-top: 15px;
+        box-shadow: 0px 6px 15px rgba(0,0,0,0.08);
+        font-weight: 600;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -147,7 +226,7 @@ st.subheader("🌿 Temperatura y Humedad del Salón")
 
 fig, ax = plt.subplots(figsize=(10, 5))
 
-fig.patch.set_facecolor('#f5efe6')
+fig.patch.set_facecolor('#f6f1eb')
 ax.set_facecolor('#fffaf5')
 
 ax.plot(
