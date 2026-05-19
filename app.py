@@ -285,7 +285,7 @@ with col2:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/869/869869.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/1684/1684375.png">
         <h3>Temperatura</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -307,7 +307,7 @@ with col3:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/753/753345.png">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -378,25 +378,21 @@ col1, col2, col3 = st.columns([1.5, 2, 1.5])
 
 with col2:
 
-    fig, ax = plt.subplots(figsize=(2.8, 1.4))
+    fig, ax = plt.subplots()
 
-    fig.patch.set_facecolor('#faf7f2')
-    ax.set_facecolor('#fffaf6')
-
-    ax.plot(
-        df["_time"],
-        df["temperature"],
-        linewidth=1.8,
-        marker='o',
-        color="#f29b77"
-    )
-
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-
-    ax.grid(alpha=0.10)
-
-    ax.tick_params(axis='x', labelsize=4, colors="#8b6f5a")
+    ax.plot(df["_time"], df["temperature"], label="Temperatura")
+    ax.plot(df["_time"], df["humidity"], label="Humedad")
+    
+    ax.set_xlabel("Tiempo")
+    ax.set_ylabel("Valores")
+    ax.set_title("Temperatura y Humedad (promedios cada 30 min)")
+    
+    ax.legend()
+    
+    plt.xticks(rotation=45)
+    
+    st.pyplot(fig)
+        ax.tick_params(axis='x', labelsize=4, colors="#8b6f5a")
     ax.tick_params(axis='y', labelsize=4, colors="#8b6f5a")
 
     st.pyplot(fig)
