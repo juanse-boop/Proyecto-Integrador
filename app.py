@@ -351,17 +351,43 @@ for i, row in df.iterrows():
     )
 
 # -------------------------------
-# TABLA
-# -------------------------------
-st.markdown("<br>", unsafe_allow_html=True)
+/* TABLA */
+.stDataFrame {
+    background: linear-gradient(
+        145deg,
+        #f8efe6,
+        #f3e3d3
+    ) !important;
 
-st.subheader("📊 Registro del Ambiente")
+    border-radius: 22px;
+    padding: 12px;
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(255,255,255,0.5);
+}
 
-st.dataframe(
-    df,
-    use_container_width=True,
-    height=180
-)
+/* ENCABEZADO TABLA */
+thead tr th {
+    background-color: #c49a7a !important;
+    color: #fffaf5 !important;
+    text-align: center !important;
+    font-size: 14px !important;
+}
+
+/* FILAS */
+tbody tr:nth-child(even) {
+    background-color: #fff8f1 !important;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f7eadc !important;
+}
+
+/* TEXTO */
+tbody td {
+    color: #7b5e4b !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+}
 
 # -------------------------------
 # -------------------------------
