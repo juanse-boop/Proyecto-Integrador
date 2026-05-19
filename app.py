@@ -278,6 +278,19 @@ with col1:
     )
 
 # -------------------------------
+# -------------------------------
+# TABLA
+# -------------------------------
+st.markdown("<br>", unsafe_allow_html=True)
+
+st.subheader("📊 Registro del Ambiente")
+
+st.dataframe(
+    df,
+    use_container_width=True,
+    height=180
+)
+
 # TEMPERATURA
 # -------------------------------
 with col2:
