@@ -392,7 +392,3 @@ with col2:
     plt.xticks(rotation=45)
     
     st.pyplot(fig)
-        ax.tick_params(axis='x', labelsize=4, colors="#8b6f5a")
-    ax.tick_params(axis='y', labelsize=4, colors="#8b6f5a")
-
-    st.pyplot(fig)
