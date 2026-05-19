@@ -307,7 +307,7 @@ with col3:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/753/753345.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/427/427735.png">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
