@@ -335,7 +335,7 @@ with col1:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/4148/4148460.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/728/728093.png">
         <h3>Humedad</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -355,7 +355,7 @@ with col2:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/869/869869.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/1684/1684375.png">
         <h3>Temperatura</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -375,7 +375,7 @@ with col3:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/427/427735.png">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
