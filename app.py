@@ -60,7 +60,6 @@ Equilibrio entre temperatura, humedad y bienestar 🌿
 """, unsafe_allow_html=True)
 
 # HORA ACTUAL
-zona_colombia = pytz.timezone("America/Bogota")
 hora_actual = datetime.now().strftime("%I:%M:%S %p")
 
 st.markdown(f"""
