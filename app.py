@@ -1,4 +1,21 @@
 # -------------------------------
+# PROCESAMIENTO
+# -------------------------------
+if isinstance(result, list):
+    df = pd.concat(result)
+else:
+    df = result
+
+df["_time"] = pd.to_datetime(df["_time"])
+df = df.sort_values("_time")
+df = df[["_time", "temperature", "humidity"]]
+
+df["intensidad_luz"] = df.apply(
+    lambda row: intensidad_luz(row["temperature"], row["humidity"]),
+    axis=1
+)
+
+# -------------------------------
 # DASHBOARD WELLNESS
 # -------------------------------
 ultima_fila = df.iloc[-1]
@@ -226,14 +243,5 @@ margin-top:10px;
 margin-bottom:30px;
 ">
 Nivel de bienestar del ambiente: 85%
-</div>
-""", unsafe_allow_html=True)
-
-# -------------------------------
-# FRASE RELAJANTE
-# -------------------------------
-st.markdown(f"""
-<div class="frase-yoga">
-{random.choice(frases)}
 </div>
 """, unsafe_allow_html=True)
