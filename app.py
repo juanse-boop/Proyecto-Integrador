@@ -6,7 +6,6 @@ import pandas as pd
 from influxdb_client import InfluxDBClient
 import matplotlib.pyplot as plt
 from datetime import datetime
-import pytz
 import random
 
 # -------------------------------
@@ -61,9 +60,8 @@ Equilibrio entre temperatura, humedad y bienestar 🌿
 """, unsafe_allow_html=True)
 
 # HORA ACTUAL
-# HORA ACTUAL
 zona_colombia = pytz.timezone("America/Bogota")
-hora_actual = datetime.now(zona_colombia).strftime("%H:%M:%S")
+hora_actual = datetime.now().strftime("%I:%M:%S %p")
 
 st.markdown(f"""
 <div style="
