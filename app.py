@@ -1,7 +1,12 @@
+# -------------------------------
+# IMPORTS
+# -------------------------------
 import streamlit as st
 import pandas as pd
 from influxdb_client import InfluxDBClient
 import matplotlib.pyplot as plt
+from datetime import datetime
+import random
 
 # -------------------------------
 # CONFIGURACIÓN STREAMLIT
@@ -27,17 +32,44 @@ Smart Yoga Studio
 </h1>
 """, unsafe_allow_html=True)
 
+# ICONO ZEN
+st.markdown("""
+<div style='
+text-align:center;
+font-size:70px;
+margin-top:-10px;
+margin-bottom:10px;
+'>
+🪷
+</div>
+""", unsafe_allow_html=True)
+
+# SUBTITULO
 st.markdown("""
 <div style="
     text-align:center;
     margin-top:10px;
-    margin-bottom:40px;
+    margin-bottom:20px;
     color:#8b6f5a;
     font-size:28px;
     font-weight:700;
     font-family:'Quicksand', sans-serif;
 ">
 Equilibrio entre temperatura, humedad y bienestar 🌿
+</div>
+""", unsafe_allow_html=True)
+
+# HORA ACTUAL
+hora_actual = datetime.now().strftime("%H:%M")
+
+st.markdown(f"""
+<div style="
+text-align:center;
+color:#9b7b65;
+font-size:18px;
+margin-bottom:35px;
+">
+🕒 Hora actual del sistema: {hora_actual}
 </div>
 """, unsafe_allow_html=True)
 
@@ -100,6 +132,35 @@ df["intensidad_luz"] = df.apply(
     axis=1
 )
 
+ultima_fila = df.iloc[-1]
+
+# -------------------------------
+# COLOR DINAMICO LUZ
+# -------------------------------
+estado = ultima_fila['intensidad_luz']
+
+if "🔴" in estado:
+    color_luz = "#e7b8b8"
+
+elif "🟡" in estado:
+    color_luz = "#e8d8a8"
+
+elif "🟢" in estado:
+    color_luz = "#bfd8c1"
+
+else:
+    color_luz = "#c7d5e5"
+
+# -------------------------------
+# FRASES ALEATORIAS
+# -------------------------------
+frases = [
+    "✨ Tu cuerpo escucha cada respiración",
+    "🪷 El equilibrio comienza en el ambiente",
+    "🌿 Respira y conecta contigo",
+    "☁️ Un espacio tranquilo transforma la mente"
+]
+
 # -------------------------------
 # ESTILOS
 # -------------------------------
@@ -131,13 +192,18 @@ h1, h2, h3 {
 
 /* TARJETAS */
 .card {
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(8px);
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
     border-radius: 28px;
     padding: 22px;
     box-shadow: 0px 8px 18px rgba(0,0,0,0.06);
     border: 1px solid rgba(255,255,255,0.5);
     text-align:center;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
 }
 
 /* ICONOS */
@@ -178,61 +244,59 @@ h1, h2, h3 {
 
 /* HISTORIAL */
 .bloque-historial {
-    background: linear-gradient(
-        145deg,
-        rgba(255, 248, 240, 0.95),
-        rgba(240, 224, 208, 0.95)
-    );
+    background: #f4e7da;
     border-radius: 22px;
     padding: 18px;
     margin-bottom: 18px;
     border-left: 6px solid #c89f7a;
     box-shadow: 0px 6px 14px rgba(0,0,0,0.05);
     color: #7b5e4b !important;
+    transition: 0.3s ease;
+}
+
+.bloque-historial:hover {
+    transform: scale(1.01);
 }
 
 /* TABLA */
 .stDataFrame {
-    background: linear-gradient(
-        145deg,
-        rgba(245, 232, 220, 0.95),
-        rgba(232, 214, 198, 0.95)
-    );
+    background: #f4e6d8 !important;
     border-radius: 22px;
     padding: 12px;
     box-shadow: 0px 5px 12px rgba(0,0,0,0.04);
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
 /* ENCABEZADO TABLA */
 thead tr th {
-    background-color: #b58b6a !important;
+    background-color: #c49a7a !important;
     color: #fffaf5 !important;
-    text-align:center !important;
+    text-align: center !important;
     font-size: 14px !important;
 }
 
-/* FILAS TABLA */
+/* FILAS */
 tbody tr:nth-child(even) {
-    background-color: #fdf5ee !important;
+    background-color: #fff8f1 !important;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f6e8da !important;
+    background-color: #f7eadc !important;
 }
 
-/* TEXTO TABLA */
+/* TEXTO */
 tbody td {
     color: #7b5e4b !important;
-    text-align:center !important;
+    text-align: center !important;
     font-weight: 600 !important;
 }
 
 /* GRAFICA */
 .element-container:has(canvas) {
-    background: rgba(255,255,255,0.3);
-    border-radius: 18px;
-    padding: 10px;
+    background: rgba(255,255,255,0.45);
+    border-radius: 20px;
+    padding: 14px;
+    box-shadow: 0px 8px 18px rgba(0,0,0,0.06);
 }
 
 /* TEXTO RELAJANTE */
@@ -245,19 +309,28 @@ tbody td {
     color:#8b6f5a;
 }
 
+/* OCULTAR STREAMLIT */
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------------
 # ESTADO ACTUAL DEL AMBIENTE
 # -------------------------------
-ultima_fila = df.iloc[-1]
-
 col1, col2, col3 = st.columns(3)
 
-# -------------------------------
 # HUMEDAD
-# -------------------------------
 with col1:
 
     st.markdown("""
@@ -277,15 +350,12 @@ with col1:
         unsafe_allow_html=True
     )
 
-# -------------------------------
-
 # TEMPERATURA
-# -------------------------------
 with col2:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/1684/1684375.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/869/869869.png">
         <h3>Temperatura</h3>
     </div>
     """, unsafe_allow_html=True)
@@ -300,21 +370,19 @@ with col2:
         unsafe_allow_html=True
     )
 
-# -------------------------------
 # LUZ
-# -------------------------------
 with col3:
 
     st.markdown("""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/427/427735.png">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown(
         f"""
-        <div class="info-box">
+        <div class="info-box" style="background:{color_luz};">
             <div class="info-title">💡 Estado de la luz</div>
             <div class="info-value" style="font-size:22px;">
                 {ultima_fila['intensidad_luz']}
@@ -325,15 +393,43 @@ with col3:
     )
 
 # -------------------------------
-# FRASE RELAJANTE
+# BARRA BIENESTAR
 # -------------------------------
+st.progress(85)
+
 st.markdown("""
-<div class="frase-yoga">
-🪷 Respira profundo, tu espacio está en equilibrio 🪷
+<div style="
+text-align:center;
+color:#8b6f5a;
+font-size:18px;
+font-weight:600;
+margin-top:10px;
+">
+Nivel de bienestar del ambiente: 85%
 </div>
 """, unsafe_allow_html=True)
 
 # -------------------------------
+# FRASE RELAJANTE
+# -------------------------------
+st.markdown(f"""
+<div class="frase-yoga">
+{random.choice(frases)}
+</div>
+""", unsafe_allow_html=True)
+
+# -------------------------------
+# SEPARADOR
+# -------------------------------
+st.markdown("""
+<hr style="
+border: 1px solid #d9bfa9;
+margin-top:40px;
+margin-bottom:40px;
+opacity:0.4;
+">
+""", unsafe_allow_html=True)
+
 # -------------------------------
 # HISTORIAL
 # -------------------------------
@@ -353,7 +449,6 @@ for i, row in df.iterrows():
     )
 
 # -------------------------------
-# -------------------------------
 # TABLA
 # -------------------------------
 st.markdown("<br>", unsafe_allow_html=True)
@@ -366,29 +461,36 @@ st.dataframe(
     height=180
 )
 
-
+# -------------------------------
 # GRAFICA PEQUEÑA
 # -------------------------------
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.subheader("📈 Tendencia del Ambiente")
 
-# CENTRAR LA GRAFICA
 col1, col2, col3 = st.columns([1.5, 2, 1.5])
 
 with col2:
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(2.8, 1.4))
 
-    ax.plot(df["_time"], df["temperature"], label="Temperatura")
-    ax.plot(df["_time"], df["humidity"], label="Humedad")
-    
-    ax.set_xlabel("Tiempo")
-    ax.set_ylabel("Valores")
-    ax.set_title("Temperatura y Humedad (promedios cada 30 min)")
-    
-    ax.legend()
-    
-    plt.xticks(rotation=45)
-    
+    fig.patch.set_facecolor('#faf7f2')
+    ax.set_facecolor('#fffaf6')
+
+    ax.plot(
+        df["_time"],
+        df["temperature"],
+        linewidth=1.8,
+        marker='o',
+        color="#f29b77"
+    )
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    ax.grid(alpha=0.10)
+
+    ax.tick_params(axis='x', labelsize=4, colors="#8b6f5a")
+    ax.tick_params(axis='y', labelsize=4, colors="#8b6f5a")
+
     st.pyplot(fig)
