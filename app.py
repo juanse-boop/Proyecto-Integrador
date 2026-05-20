@@ -152,6 +152,21 @@ else:
     color_luz = "#c7d5e5"
 
 # -------------------------------
+# IMAGEN DINAMICA DE LUZ
+# -------------------------------
+if "🔴" in estado:
+    imagen_luz = "https://cdn-icons-png.flaticon.com/512/565/565547.png"
+
+elif "🟡" in estado:
+    imagen_luz = "https://cdn-icons-png.flaticon.com/512/427/427735.png"
+
+elif "🟢" in estado:
+    imagen_luz = "https://cdn-icons-png.flaticon.com/512/869/869869.png"
+
+else:
+    imagen_luz = "https://cdn-icons-png.flaticon.com/512/1828/1828490.png"
+
+# -------------------------------
 # FRASES ALEATORIAS
 # -------------------------------
 frases = [
@@ -373,9 +388,9 @@ with col2:
 # LUZ
 with col3:
 
-    st.markdown("""
+    st.markdown(f"""
     <div class="card">
-        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/427/427735.png">
+        <img class="icon-img" src="{imagen_luz}">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
