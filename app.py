@@ -205,6 +205,7 @@ tbody td {
 """, unsafe_allow_html=True)
 
 # -------------------------------
+# -------------------------------
 # VARIABLES PRINCIPALES
 # -------------------------------
 col1, col2, col3 = st.columns(3)
@@ -212,69 +213,77 @@ col1, col2, col3 = st.columns(3)
 # TEMPERATURA
 with col1:
 
-    st.markdown(f"""
-    <div class="card">
+    st.markdown(
+        f"""
+        <div class="card">
 
-        <img src="https://cdn-icons-png.flaticon.com/512/4814/4814268.png" width="90">
+            <img src="https://cdn-icons-png.flaticon.com/512/4814/4814268.png" width="90">
 
-        <h2>Temperatura</h2>
+            <h2>Temperatura</h2>
 
-        <div style="
-            font-size:38px;
-            font-weight:700;
-            color:#6f5442;
-            margin-top:10px;
-        ">
-            {ultima_fila['temperature']:.2f} °C
+            <div style="
+                font-size:38px;
+                font-weight:700;
+                color:#6f5442;
+                margin-top:10px;
+            ">
+                {ultima_fila['temperature']:.2f} °C
+            </div>
+
         </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
 # HUMEDAD
 with col2:
 
-    st.markdown(f"""
-    <div class="card">
+    st.markdown(
+        f"""
+        <div class="card">
 
-        <img src="https://cdn-icons-png.flaticon.com/512/728/728093.png" width="90">
+            <img src="https://cdn-icons-png.flaticon.com/512/728/728093.png" width="90">
 
-        <h2>Humedad</h2>
+            <h2>Humedad</h2>
 
-        <div style="
-            font-size:38px;
-            font-weight:700;
-            color:#6f5442;
-            margin-top:10px;
-        ">
-            {ultima_fila['humidity']:.2f} %
+            <div style="
+                font-size:38px;
+                font-weight:700;
+                color:#6f5442;
+                margin-top:10px;
+            ">
+                {ultima_fila['humidity']:.2f} %
+            </div>
+
         </div>
-
-    </div>
-    """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
 # LUZ
 with col3:
 
-    st.markdown(f"""
-    <div class="card">
+    st.markdown(
+        f"""
+        <div class="card">
 
-        <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" width="90">
+            <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" width="90">
 
-        <h2>Luz Inteligente</h2>
+            <h2>Luz Inteligente</h2>
 
-        <div style="
-            font-size:22px;
-            font-weight:700;
-            color:#6f5442;
-            margin-top:12px;
-        ">
-            {ultima_fila['intensidad_luz']}
+            <div style="
+                font-size:22px;
+                font-weight:700;
+                color:#6f5442;
+                margin-top:12px;
+            ">
+                {ultima_fila['intensidad_luz']}
+            </div>
+
         </div>
-
-    </div>
-    """, unsafe_allow_html=True)
-
+        """,
+        unsafe_allow_html=True
+    )
 # -------------------------------
 # FRASE
 # -------------------------------
