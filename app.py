@@ -354,17 +354,6 @@ with col1:
         <h3>Humedad</h3>
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown(
-        f"""
-        <div class="info-box">
-            <div class="info-title">💧 Nivel de humedad</div>
-            <div class="info-value">{ultima_fila['humidity']:.2f}%</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
 # TEMPERATURA
 with col2:
 
@@ -374,38 +363,15 @@ with col2:
         <h3>Temperatura</h3>
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown(
-        f"""
-        <div class="info-box">
-            <div class="info-title">🌡️ Temperatura actual</div>
-            <div class="info-value">{ultima_fila['temperature']:.2f}°C</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
 # LUZ
 with col3:
 
-    st.markdown(f"""
+    st.markdown("""
     <div class="card">
-        <img class="icon-img" src="{imagen_luz}">
+        <img class="icon-img" src="https://cdn-icons-png.flaticon.com/512/427/427735.png">
         <h3>Luz Inteligente</h3>
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown(
-        f"""
-        <div class="info-box" style="background:{color_luz};">
-            <div class="info-title">💡 Estado de la luz</div>
-            <div class="info-value" style="font-size:22px;">
-                {ultima_fila['intensidad_luz']}
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
 # -------------------------------
 # BARRA BIENESTAR
