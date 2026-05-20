@@ -12,7 +12,100 @@ st.set_page_config(
 )
 
 # -------------------------------
-# TITULO PRINCIPAL
+# ESTILOS
+# -------------------------------
+st.markdown("""
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Quicksand', sans-serif;
+    color: #6f5442 !important;
+}
+
+/* FONDO */
+.stApp {
+    background: linear-gradient(
+        180deg,
+        #faf6f1 0%,
+        #f1e2d3 100%
+    );
+}
+
+/* TITULOS */
+h1, h2, h3 {
+    color: #6f5442 !important;
+    text-align: center;
+}
+
+/* TARJETAS */
+.card {
+    background: #f3e4d6;
+    border-radius: 25px;
+    padding: 25px;
+    text-align: center;
+    border: 1px solid #d9bea8;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+}
+
+/* HISTORIAL */
+.historial-box {
+    background: #f3e4d6;
+    border-radius: 22px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.04);
+    color: #6f5442 !important;
+    text-align: center;
+}
+
+/* TABLA */
+.stDataFrame {
+    background: #f3e4d6 !important;
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #e0c7b2;
+}
+
+/* HEADER TABLA */
+thead tr th {
+    background-color: #c49a7a !important;
+    color: white !important;
+    text-align: center !important;
+}
+
+/* FILAS */
+tbody tr:nth-child(even) {
+    background-color: #fff8f1 !important;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9eee3 !important;
+}
+
+/* TEXTO TABLA */
+tbody td {
+    color: #6f5442 !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+}
+
+/* FRASE */
+.frase {
+    text-align: center;
+    color: #7b5e4b;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# -------------------------------
+# TITULO
 # -------------------------------
 st.markdown("""
 <h1 style="
@@ -20,8 +113,6 @@ st.markdown("""
     color:#7b5e4b;
     font-size:55px;
     font-weight:700;
-    font-family:'Quicksand', sans-serif;
-    margin-bottom:0px;
 ">
 Smart Yoga Studio
 </h1>
@@ -35,7 +126,6 @@ st.markdown("""
     font-weight:700;
     margin-top:10px;
     margin-bottom:40px;
-    font-family:'Quicksand', sans-serif;
 ">
 Equilibrio entre temperatura, humedad y bienestar 🌿
 </div>
@@ -44,10 +134,10 @@ Equilibrio entre temperatura, humedad y bienestar 🌿
 # -------------------------------
 # CONFIGURACIÓN INFLUXDB
 # -------------------------------
-url = st.secrets["INFLUX_URL"]
-token = st.secrets["INFLUX_TOKEN"]
-org = st.secrets["INFLUX_ORG"]
-bucket = st.secrets["INFLUX_BUCKET"]
+url = "https://us-east-1-1.aws.cloud2.influxdata.com"
+token = "TU_TOKEN_AQUI"
+org = "miguelcmo"
+bucket = "iot_telemetry_data"
 
 client = InfluxDBClient(
     url=url,
@@ -101,6 +191,9 @@ df = df.sort_values("_time")
 
 df = df[["_time", "temperature", "humidity"]]
 
+# -------------------------------
+# APLICAR LÓGICA
+# -------------------------------
 df["intensidad_luz"] = df.apply(
     lambda row: intensidad_luz(
         row["temperature"],
@@ -112,121 +205,19 @@ df["intensidad_luz"] = df.apply(
 ultima_fila = df.iloc[-1]
 
 # -------------------------------
-# ESTILOS
-# -------------------------------
-st.markdown("""
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Quicksand', sans-serif;
-    color:#6f5442 !important;
-}
-
-/* FONDO */
-.stApp {
-    background: linear-gradient(
-        180deg,
-        #faf6f1 0%,
-        #f1e2d3 100%
-    );
-}
-
-/* TITULOS */
-h1, h2, h3 {
-    color:#6f5442 !important;
-    text-align:center;
-}
-
-/* TARJETAS */
-.card {
-    background:#f3e4d6;
-    border-radius:28px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0px 6px 16px rgba(0,0,0,0.05);
-    border:1px solid #e0c7b2;
-}
-
-/* HISTORIAL */
-.historial-box {
-    background:#f3e4d6;
-    border-radius:22px;
-    padding:18px;
-    margin-bottom:18px;
-    box-shadow:0px 4px 10px rgba(0,0,0,0.04);
-    color:#6f5442 !important;
-    text-align:center;
-}
-
-/* TABLA */
-.stDataFrame {
-    background:#f3e4d6 !important;
-    border-radius:20px;
-    padding:10px;
-    border:1px solid #e0c7b2;
-}
-
-/* HEADER TABLA */
-thead tr th {
-    background-color:#c49a7a !important;
-    color:white !important;
-    text-align:center !important;
-}
-
-/* FILAS */
-tbody tr:nth-child(even) {
-    background-color:#fff8f1 !important;
-}
-
-tbody tr:nth-child(odd) {
-    background-color:#f9eee3 !important;
-}
-
-/* TEXTO TABLA */
-tbody td {
-    color:#6f5442 !important;
-    text-align:center !important;
-    font-weight:600 !important;
-}
-
-/* FRASE */
-.frase {
-    text-align:center;
-    color:#7b5e4b;
-    font-size:30px;
-    font-weight:700;
-    margin-top:35px;
-    margin-bottom:35px;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# -------------------------------
-# -------------------------------
-# VARIABLES PRINCIPALES
+# TARJETAS PRINCIPALES
 # -------------------------------
 col1, col2, col3 = st.columns(3)
 
-# -------------------------------
 # TEMPERATURA
-# -------------------------------
 with col1:
 
-    temperatura_html = f"""
-    <div class="card" style="
-        background:#f3e4d6;
-        border-radius:25px;
-        padding:25px;
-        text-align:center;
-        border:1px solid #d9bea8;
-    ">
+    st.markdown(f"""
+    <div class="card">
 
         <img src="https://cdn-icons-png.flaticon.com/512/4814/4814268.png" width="90">
 
-        <h2 style="color:#6f5442;">Temperatura</h2>
+        <h2>Temperatura</h2>
 
         <div style="
             font-size:38px;
@@ -238,27 +229,17 @@ with col1:
         </div>
 
     </div>
-    """
+    """, unsafe_allow_html=True)
 
-    st.markdown(temperatura_html, unsafe_allow_html=True)
-
-# -------------------------------
 # HUMEDAD
-# -------------------------------
 with col2:
 
-    humedad_html = f"""
-    <div class="card" style="
-        background:#f3e4d6;
-        border-radius:25px;
-        padding:25px;
-        text-align:center;
-        border:1px solid #d9bea8;
-    ">
+    st.markdown(f"""
+    <div class="card">
 
         <img src="https://cdn-icons-png.flaticon.com/512/728/728093.png" width="90">
 
-        <h2 style="color:#6f5442;">Humedad</h2>
+        <h2>Humedad</h2>
 
         <div style="
             font-size:38px;
@@ -270,27 +251,17 @@ with col2:
         </div>
 
     </div>
-    """
+    """, unsafe_allow_html=True)
 
-    st.markdown(humedad_html, unsafe_allow_html=True)
-
-# -------------------------------
 # LUZ
-# -------------------------------
 with col3:
 
-    luz_html = f"""
-    <div class="card" style="
-        background:#f3e4d6;
-        border-radius:25px;
-        padding:25px;
-        text-align:center;
-        border:1px solid #d9bea8;
-    ">
+    st.markdown(f"""
+    <div class="card">
 
         <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" width="90">
 
-        <h2 style="color:#6f5442;">Luz Inteligente</h2>
+        <h2>Luz Inteligente</h2>
 
         <div style="
             font-size:22px;
@@ -302,9 +273,8 @@ with col3:
         </div>
 
     </div>
-    """
+    """, unsafe_allow_html=True)
 
-    st.markdown(luz_html, unsafe_allow_html=True)
 # -------------------------------
 # FRASE
 # -------------------------------
