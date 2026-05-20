@@ -60,7 +60,7 @@ Equilibrio entre temperatura, humedad y bienestar 🌿
 """, unsafe_allow_html=True)
 
 # HORA ACTUAL
-hora_actual = datetime.now().strftime("%H:%M")
+hora_actual = datetime.now().strftime("%H:%M:%S")
 
 st.markdown(f"""
 <div style="
